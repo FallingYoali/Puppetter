@@ -38,23 +38,22 @@ public class MovingPlatform : MonoBehaviour
     {
         if (on)
         {
-            if (time >= 0.5f)
+            
+            if (time >= 0.1f) //this works well with a 0.1 speed
             {
                 goingDown = !goingDown;
                 time = 0.0f;
+                Debug.Log("Down: " + goingDown);
             }
             if (time <= 1.0f)
             {
-                Debug.Log("in time");
                 if (goingDown)
                 {
-                    Debug.Log("down");
                     startPos = transform.position;
                     endPos = new Vector3(transform.position.x, low_y, transform.position.z);
                 }
                 else
                 {
-                    Debug.Log("up");
                     startPos = transform.position;
                     endPos = new Vector3(transform.position.x, high_y, transform.position.z);
                 }
