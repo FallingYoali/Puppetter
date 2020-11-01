@@ -12,6 +12,7 @@ public class Switch : MonoBehaviour
     Animation anim;
     bool on = false, action = false;
     MovingPlatform movePlatform;
+    public MovableWall moveWall;
 
 
     void Start()
@@ -30,9 +31,12 @@ public class Switch : MonoBehaviour
             anim["SwitchDown"].speed = 1;
             on = true;
             movePlatform.MovePlatform();
+           
+
         }
         else
         {
+            Debug.Log("detect on");
             anim["SwitchDown"].time = anim["SwitchDown"].length;
             anim["SwitchDown"].speed = -1;
             on = false;
@@ -45,8 +49,10 @@ public class Switch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("Player"))
         {
+            
             action = true;
         }  
     }
@@ -65,6 +71,7 @@ public class Switch : MonoBehaviour
         {
             Debug.Log("switch");
             MoveSwitch();
+            moveWall.ActivateWall();
         }
     }
 }

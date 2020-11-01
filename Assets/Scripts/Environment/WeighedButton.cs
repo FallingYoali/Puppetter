@@ -8,6 +8,7 @@ public class WeighedButton : MonoBehaviour
     private int blockCount;
     private Animation anim;
     private bool activated;
+    public Animation bridgeMovement;
 
     void Start()
     {
@@ -17,19 +18,33 @@ public class WeighedButton : MonoBehaviour
 
     private void DeactivateButton()
     {
-        anim["SwitchDown"].time = anim["SwitchDown"].length;
-        anim["SwitchDown"].speed = -1;
+        anim["WeighedButton"].time = anim["WeighedButton"].length;
+        anim["WeighedButton"].speed = -1;
         activated = false;
         anim.Play();
+
+        bridgeMovement["BridgeMove"].time = bridgeMovement["BridgeMove"].length;
+        bridgeMovement["BridgeMove"].speed = -1;
+        bridgeMovement.Play();
+
         Debug.Log("Deactivated!");
 
     }
 
     private void ActivateButton()
     {
-        anim["SwitchDown"].time = 0;
-        anim["SwitchDown"].speed = 1;
+        Debug.Log(anim, anim);
+        Debug.Log(anim["WeighedButton"]);
+        anim["WeighedButton"].time = 0;
+        anim["WeighedButton"].speed = 1;
         anim.Play();
+
+
+        bridgeMovement["BridgeMove"].time = 0;
+        bridgeMovement["BridgeMove"].speed = 1;
+        bridgeMovement.Play();
+
+        
         activated = true;
         Debug.Log("Activated!");
 
