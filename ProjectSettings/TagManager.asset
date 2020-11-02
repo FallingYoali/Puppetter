@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - block
+  - Gryppy
+  - Climbable
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - esTierra
+  - esJugador
+  - esEnemigo
   - 
   - 
   - 
