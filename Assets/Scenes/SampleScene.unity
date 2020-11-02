@@ -1979,7 +1979,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7349680242214117098, guid: efcba540b3baa43379f720ec4d467cdd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: efcba540b3baa43379f720ec4d467cdd, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -2108,14 +2109,16 @@ MonoBehaviour:
     m_Bits: 512
   hp: 10
   walkpoint: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 2.14, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
-  projectile: {fileID: 5731774113894875336, guid: a38aaa2641510e2458b3119f0eb8e7bd,
+  timeBetweenAttacks: 3
+  projectile: {fileID: 1061717431993082488, guid: a2144be7d3293984d8757488f711396c,
     type: 3}
-  sightRange: 20
-  attackRange: 12
+  sightRange: 38.8
+  attackRange: 34.45
   playerEnRango: 0
   playerEnRangoAtaque: 0
+  fuerzaDisparo: 0.4
 --- !u!195 &1259995212
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4206,7 +4209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149523321397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.41, y: 1.1087699, z: 4.5058813}
+  m_LocalPosition: {x: -12.41, y: 0.64, z: 4.5058813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428871117232200417}

@@ -16,8 +16,11 @@ public class Enemy : MonoBehaviour
     public float hp;
 
 
+
+
     //Patrullar 
     public Vector3 walkpoint;
+    public Vector3 offset;
     bool walkPointSet;
     public float walkPointRange;
 
@@ -31,14 +34,18 @@ public class Enemy : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool playerEnRango, playerEnRangoAtaque;
-
+ 
+    [SerializeField]
+    float fuerzaDisparo;
 
     private void Awake()
     {
+
         player = GameObject.Find("Bobby").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }
+
 
 
     private void Update()
@@ -100,8 +107,8 @@ public class Enemy : MonoBehaviour
         {
 
 
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+            Rigidbody rb = Instantiate(projectile, transform.position + offset, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * fuerzaDisparo, ForceMode.Impulse);
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -135,4 +142,6 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
 
     }
+
+
 }

@@ -113,7 +113,15 @@ public class Bobby : MonoBehaviour
             return;
     }
 
-    public void TakeDamage() => hp--;
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if(hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
+    }
 
     public void Drop()
     {
