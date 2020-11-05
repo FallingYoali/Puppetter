@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
+
 
 public class Bobby : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class Bobby : MonoBehaviour
     private float turnSmoothVelocity;
     private Vector3 moveDir;
     private Vector3 currentSpeed;
+    public GameObject espadita;
+
+
 
     [Header("Grab&Throw")]
     public bool nearObject = false;
@@ -68,12 +72,22 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
+
+
+
+        //atacar
+        if(Inputs.jumpInput.triggered)
+        {
+            espadita.SetActive(true);
+            Debug.Log("Ataco el jugador");
+        }
+
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
         else
             currentSpeed.y = rb.velocity.y;
-
+        
         //Actualizacion de velocidad
         rb.velocity = currentSpeed;
 
