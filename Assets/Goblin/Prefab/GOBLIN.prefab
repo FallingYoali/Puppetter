@@ -11643,6 +11643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400702}
   - component: {fileID: 11100000}
+  - component: {fileID: 3950608511282959138}
   m_Layer: 0
   m_Name: GOBLIN
   m_TagString: Untagged
@@ -11696,3 +11697,32 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &3950608511282959138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e651f475f3d956b4893671f5ec58f788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  esTierra:
+    serializedVersion: 2
+    m_Bits: 0
+  esJugador:
+    serializedVersion: 2
+    m_Bits: 0
+  hp: 0
+  walkpoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
+  timeBetweenAttacks: 0
+  projectile: {fileID: 0}
+  sightRange: 0
+  attackRange: 0
+  playerEnRango: 0
+  playerEnRangoAtaque: 0
