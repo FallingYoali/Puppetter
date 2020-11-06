@@ -6989,7 +6989,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15118
+  m_Name: pb_Mesh109954
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12170,7 +12170,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -24195,7 +24195,7 @@ GameObject:
   - component: {fileID: 824049635}
   - component: {fileID: 824049634}
   - component: {fileID: 824049633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25086,7 +25086,7 @@ PrefabInstance:
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Id
-      value: 15b8a50a-1013-4e4b-81bb-57e236fa10ec
+      value: 215f625b-0f90-4785-961a-a1a86ebbbafe
       objectReference: {fileID: 0}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -25096,7 +25096,7 @@ PrefabInstance:
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Path
-      value: <Keyboard>/space
+      value: <Gamepad>/buttonSouth
       objectReference: {fileID: 0}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -25116,22 +25116,37 @@ PrefabInstance:
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Interactions
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 15b8a50a-1013-4e4b-81bb-57e236fa10ec
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Keyboard>/space
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Interactions
       value: Press
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.639348
+      value: 11.68
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.718
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.09
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -31537,6 +31552,37 @@ PrefabInstance:
       propertyPath: hp
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 1076337708}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: sightRange
+      value: 4.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: attackRange
+      value: 4.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: walkPointRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 2506704914784967790, guid: a2144be7d3293984d8757488f711396c,
+        type: 3}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
 --- !u!1 &1076337707 stripped
@@ -32752,7 +32798,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh91010
+  m_Name: pb_Mesh110054
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -38298,7 +38344,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15354
+  m_Name: pb_Mesh110206
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -38468,7 +38514,7 @@ GameObject:
   - component: {fileID: 1844866837}
   - component: {fileID: 1844866836}
   - component: {fileID: 1844866835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
