@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
+
 
 public class Bobby : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class Bobby : MonoBehaviour
     public int hp = 3;
     public bool isRunning;
     public bool nearClimb = false;
-    [SerializeField]private bool isGrounded;
-    
+    [SerializeField] private bool isGrounded;
+
     [Header("Movimiento")]
     public float speed = 5.0f;
     public float jumpForce = 15f;
@@ -22,6 +23,9 @@ public class Bobby : MonoBehaviour
     private float turnSmoothVelocity;
     private Vector3 moveDir;
     private Vector3 currentSpeed;
+    public GameObject espadita;
+
+
 
     [Header("Grab&Throw")]
     public bool nearObject = false;
@@ -68,6 +72,18 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
+
+
+
+        //atacar
+        if (Inputs.jumpInput.triggered)
+        {
+            espadita.SetActive(true);
+            Invoke("Delay", 0.5f);
+        }
+        
+
+        
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
@@ -79,16 +95,16 @@ public class Bobby : MonoBehaviour
 
 
         /// ---- Drag & Drop ----- ///
-        
+
         //Recoge el objeto 
         if (nearObject && !carryObject && Inputs.interactInput.triggered)
         {
             carryObject = true;
             isTrowable = true;
-            
+
             if (item != null)
             {
-                
+
                 item.transform.position = objectHolder.position + rb.transform.forward;
                 item.transform.SetParent(objectHolder);
                 item.isKinematic = true;
@@ -102,7 +118,7 @@ public class Bobby : MonoBehaviour
             {
                 Drop();
                 //Debug.DrawRay(item.transform.position, transform.forward, Color.red, 10f);
-                item.AddForce(transform.forward  * throwForce);
+                item.AddForce(transform.forward * throwForce);
             }
             else
                 Drop();
@@ -113,15 +129,19 @@ public class Bobby : MonoBehaviour
             return;
     }
 
-    public void TakeDamage(int value)
+    private void Delay()
     {
-
-        hp -= value;
-        if(hp<=0)
+        espadita.SetActive(false);
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
         {
             gameObject.SetActive(false);
         }
-        
+
     }
 
     public void Drop()

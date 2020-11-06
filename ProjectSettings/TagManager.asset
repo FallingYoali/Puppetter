@@ -8,6 +8,7 @@ TagManager:
   - Climbable
   - block
   - Bala
+  - enemy
   layers:
   - Default
   - TransparentFX
