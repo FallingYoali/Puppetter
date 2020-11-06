@@ -25025,8 +25025,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
+      propertyPath: runInput.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Id
-      value: 15b8a50a-1013-4e4b-81bb-57e236fa10ec
+      value: 215f625b-0f90-4785-961a-a1a86ebbbafe
       objectReference: {fileID: 0}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -25036,7 +25041,7 @@ PrefabInstance:
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Path
-      value: <Keyboard>/space
+      value: <Gamepad>/buttonSouth
       objectReference: {fileID: 0}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -25056,6 +25061,41 @@ PrefabInstance:
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.data[1].m_Interactions
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: runInput.m_SingletonActionBindings.Array.data[1].m_Id
+      value: c443cffb-38c6-4af6-b01c-0493d957bb4b
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: runInput.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Keyboard>/space
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: runInput.m_SingletonActionBindings.Array.data[1].m_Interactions
+      value: Press
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: runInput.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Run Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Id
+      value: be80cdcc-a573-4866-b887-9a6790bd9ec9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Keyboard>/space
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: jumpInput.m_SingletonActionBindings.Array.data[0].m_Interactions
       value: Press
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
