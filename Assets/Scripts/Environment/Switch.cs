@@ -13,6 +13,8 @@ public class Switch : MonoBehaviour
     bool on = false, action = false;
     MovingPlatform movePlatform;
     public MovableWall moveWall;
+    [SerializeField]
+    private PlayerInputs playerInputs;
 
 
     void Start()
@@ -67,7 +69,7 @@ public class Switch : MonoBehaviour
 
     private void Update()
     {
-        if (action &&  Input.GetKeyDown(KeyCode.Space))  
+        if (action &&  playerInputs.interactInput.triggered)  
         {
             Debug.Log("switch");
             MoveSwitch();
