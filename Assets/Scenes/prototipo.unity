@@ -25156,7 +25156,7 @@ PrefabInstance:
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
@@ -25190,6 +25190,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e0c9c9fd5217a54d9136d8084c03d4b, type: 3}
+--- !u!4 &911125102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6865695081793909887, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 911125101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &921629909
 Mesh:
   m_ObjectHideFlags: 0
@@ -31510,6 +31516,26 @@ PrefabInstance:
     - target: {fileID: 400702, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 911125102}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: esTierra.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: esJugador.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
+        type: 3}
+      propertyPath: hp
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}

@@ -113,7 +113,11 @@ public class Bobby : MonoBehaviour
             return;
     }
 
-    public void TakeDamage() => hp--;
+    public void TakeDamage(int value)
+    {
+
+
+    }
 
     public void Drop()
     {
