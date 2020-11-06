@@ -116,7 +116,12 @@ public class Bobby : MonoBehaviour
     public void TakeDamage(int value)
     {
 
-
+        hp -= value;
+        if(hp<=0)
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 
     public void Drop()
