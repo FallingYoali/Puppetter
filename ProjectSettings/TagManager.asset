@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Gryppy
   - Climbable
+  - block
+  - Bala
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - esTierra
   - esJugador
   - esEnemigo
-  - 
-  - 
+  - esBalita
+  - Gryppy
   - 
   - 
   - 
