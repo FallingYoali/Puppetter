@@ -86,7 +86,7 @@ public class Bobby : MonoBehaviour
         //atacar
         if (Inputs.jumpInput.triggered)
         {
-            espadita.SetActive(true);
+            gameObject.SetActive(true);
             Invoke("Delay", 0.5f);
         }
         
