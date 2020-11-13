@@ -12,6 +12,7 @@ public class Bobby : MonoBehaviour
     public int hp = 3;
     public bool isRunning;
     [SerializeField] private bool isGrounded;
+    [SerializeField] GameObject espadita;
 
     [Header("Movimiento")]
     public float speed = 5.0f;
