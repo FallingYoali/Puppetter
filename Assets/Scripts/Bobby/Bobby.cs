@@ -80,6 +80,13 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
+        if(Inputs.jumpInput.triggered)
+        {
+            espadita.SetActive(true);
+            Invoke(nameof(DesactivateEspadita), 0.5f);
+           
+        }
+
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
@@ -168,6 +175,10 @@ public class Bobby : MonoBehaviour
         }
     }
 
+    private void DesactivateEspadita()
+    {
+        espadita.SetActive(false);
+    }
 
     public void TakeDamage(int value)
     {
