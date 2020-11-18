@@ -7,6 +7,7 @@ public class PlayerInputs : MonoBehaviour
 {
     [Header("Inputs")]
     public InputAction dirInput;
+    public InputAction dirInputDer;
     public InputAction runInput;
     public InputAction jumpInput;
     public InputAction throwInput;
@@ -15,6 +16,7 @@ public class PlayerInputs : MonoBehaviour
     void OnEnable()
     {
         dirInput.Enable();
+        dirInputDer.Enable();
         runInput.Enable();
         jumpInput.Enable();
         throwInput.Enable();
@@ -24,6 +26,7 @@ public class PlayerInputs : MonoBehaviour
     void OnDisable()
     {
         dirInput.Disable();
+        dirInputDer.Disable();
         runInput.Disable();
         jumpInput.Disable();
         throwInput.Disable();
