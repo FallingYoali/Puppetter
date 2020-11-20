@@ -9,7 +9,7 @@ public class Bobby : MonoBehaviour
     private PlayerInputs Inputs;
 
     [Header("Player")]
-    private Rigidbody rb;
+    private Rigidbody playerRb;
     public int hp = 3;
     public bool isRunning;
     [SerializeField] private bool isGrounded;
@@ -25,8 +25,8 @@ public class Bobby : MonoBehaviour
     private bool takeFallingDmg = false;
 
     [Header("Grab&Throw")]
-    public bool nearObject = false;
-    public Rigidbody item = null;
+    private bool nearObject = false;
+    private Rigidbody item = null;
     public Transform objectHolder;
     public float throwForce;
     public bool carryObject = false;
@@ -35,21 +35,20 @@ public class Bobby : MonoBehaviour
     [Header("Climbing")]
     public bool nearClimb = false;
     public bool isClimbing = false;
-    public GameObject wall = null;
+    public GameObject wall;
     public float climbSpeed = 2f;
-    public Vector3 distanceToWall = new Vector3(0, 0, 0);
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        playerRb = GetComponent<Rigidbody>();
         Inputs = GetComponent<PlayerInputs>();
     }
 
     private void Update()
     {
         /// ---- Movement ----- ///
-        Vector3 currentSpeed = rb.velocity;
+        Vector3 currentSpeed = playerRb.velocity;
         Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
         Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y).normalized;
 
@@ -66,12 +65,13 @@ public class Bobby : MonoBehaviour
 
             //Rotacion
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); //Te 
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             //Direccion 
             moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             currentSpeed = moveDir * speed * speedMultiplier;
+            
         }
         else //Dejo de moverse
         {
@@ -80,27 +80,25 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
-
-
-
         //atacar
-        if (Inputs.jumpInput.triggered)
+        if (Inputs.attackInput.triggered)
         {
+            //Debug.Log("ataca");
             gameObject.SetActive(true);
             Invoke("Delay", 0.5f);
         }
-        
-
         
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
         else
-            currentSpeed.y = rb.velocity.y;
+            currentSpeed.y = playerRb.velocity.y;
 
         //Actualizacion de velocidad
-        rb.velocity = currentSpeed;
-
+        if(!isGrounded && playerRb.velocity.y == 0)
+            currentSpeed.y -= 2.81f;
+        playerRb.velocity = currentSpeed;
+        
 
         /// ---- Drag & Drop ----- ///
 
@@ -113,7 +111,7 @@ public class Bobby : MonoBehaviour
             if (item != null)
             {
 
-                item.transform.position = objectHolder.position + rb.transform.forward * 0.5f;
+                item.transform.position = objectHolder.position + playerRb.transform.forward * 0.3f;
                 item.transform.SetParent(objectHolder);
                 item.isKinematic = true;
                 item.useGravity = false;
@@ -124,11 +122,7 @@ public class Bobby : MonoBehaviour
         if (Inputs.throwInput.triggered && carryObject)
         {
             if (isTrowable)
-            {
-                Drop();
-                //Debug.DrawRay(item.transform.position, transform.forward, Color.red, 10f);
-                //item.AddForce(transform.forward * throwForce);
-            }
+                Throw();
             else
                 Drop();
         }
@@ -136,8 +130,7 @@ public class Bobby : MonoBehaviour
 
         /// ---- Climbing ---- ///
 
-
-        if (isClimbing)
+        if (isClimbing) //
         { //Work In Progress 
             Climb();
             return;
@@ -149,10 +142,12 @@ public class Bobby : MonoBehaviour
             Ray dirRay = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(dirRay, out hit, 2f) && hit.collider.tag == "Climbable") //Verifica que el player este mirando a la pared
             {
-
-                rb.useGravity = false;
+                playerRb.useGravity = false;
                 isClimbing = true;
                 wall = hit.collider.gameObject;
+
+                
+                
 
                 //rb.rotation = Quaternion.Euler(distanceToWall);
             }
@@ -160,24 +155,8 @@ public class Bobby : MonoBehaviour
 
 
         /// ---- Falling dmg ---- ///
-
         if (!isGrounded)
-        {
-            RaycastHit hit;
-            Ray dirRay = new Ray(transform.position, -transform.up);
-            float distanceToGround;
-
-            if (takeFallingDmg)
-                return;
-
-            if (Physics.Raycast(dirRay, out hit) && hit.collider.gameObject.layer == 8)
-            {
-                distanceToGround = transform.position.y - hit.transform.position.y;
-                if (distanceToGround >= 15f)
-                    takeFallingDmg = true;
-
-            }
-        }
+            FallingDmg();
     }
 
 
@@ -190,6 +169,17 @@ public class Bobby : MonoBehaviour
         }
 
     }
+
+
+    private void Throw(){
+        item.isKinematic = false;
+        item.useGravity = true;
+        carryObject = false;
+        isTrowable = false;
+
+        objectHolder.DetachChildren(); 
+        item.AddForce(transform.forward * throwForce);
+    }    
 
     public void Drop()
     {
@@ -222,7 +212,24 @@ public class Bobby : MonoBehaviour
                 currentSpeed = -transform.up * climbSpeed;
         }
 
-        rb.velocity = currentSpeed;
+        playerRb.velocity = currentSpeed;
+    }
+
+    void FallingDmg(){
+         RaycastHit hit;
+        Ray dirRay = new Ray(transform.position, -transform.up);
+        float distanceToGround;
+
+        if (takeFallingDmg)
+            return;
+
+        if (Physics.Raycast(dirRay, out hit) && hit.collider.gameObject.layer == 8)
+        {
+            distanceToGround = transform.position.y - hit.transform.position.y;
+            if (distanceToGround >= 15f)
+                takeFallingDmg = true;
+
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -253,8 +260,8 @@ public class Bobby : MonoBehaviour
 
         if (other.tag == "Climbable")
         {
-            rb.position += new Vector3(-1.5f, 7.5f, 0f);
-            //nearClimb = true;
+            //rb.position += new Vector3(-1.5f, 7.5f, 0f);
+            nearClimb = true;
             //wall = other.GetComponent<GameObject>();
         }
 
@@ -270,7 +277,7 @@ public class Bobby : MonoBehaviour
         if (other.tag == "Climbable")
         {
             nearClimb = false;
-            wall = null;
+            //wall = null;
 
         }
 
