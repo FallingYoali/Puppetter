@@ -63,7 +63,7 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
-        if(Inputs.jumpInput.triggered)
+        if(Inputs.attackInput.triggered)
         {
             espadita.SetActive(true);
             Invoke(nameof(DesactivateEspadita), 0.5f);
@@ -266,9 +266,9 @@ public class Bobby : MonoBehaviour
         
         if(isClimbing && other.tag == "EndClimb")
         {
+            playerRb.useGravity = true;
             wall = null;
             isClimbing = false;
-            playerRb.useGravity = true;
             playerRb.transform.position += playerRb.transform.forward + new Vector3(0f, 1f, 0f);
         }
     }
