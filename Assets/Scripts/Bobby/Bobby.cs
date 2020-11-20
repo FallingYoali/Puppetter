@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
-
+using UnityEngine.InputSystem;
 
 public class Bobby : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class Bobby : MonoBehaviour
     public int hp = 3;
     public bool isRunning;
     [SerializeField] private bool isGrounded;
+    [SerializeField] GameObject espadita;
 
     [Header("Movimiento")]
     public float speed = 5.0f;
@@ -63,13 +63,12 @@ public class Bobby : MonoBehaviour
             isRunning = false;
         }
 
-        //atacar
-        if (Inputs.attackInput.triggered)
+        if(Inputs.attackInput.triggered)
         {
-            gameObject.SetActive(true);
-            Invoke("Delay", 0.5f);
+            espadita.SetActive(true);
+            Invoke(nameof(DesactivateEspadita), 0.5f);
         }
-        
+
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
@@ -145,9 +144,9 @@ public class Bobby : MonoBehaviour
         {
             isRunning = true;
             speedMultiplier = 1.5f;
-        }
 
-        //Rotacion
+        }
+         //Rotacion
         float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -155,6 +154,12 @@ public class Bobby : MonoBehaviour
         //Direccion 
         moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         return moveDir * speed * speedMultiplier;
+    }
+
+    private void DesactivateEspadita()
+    {
+        espadita.SetActive(false);
+       
     }
 
     public void TakeDamage(int value)
@@ -228,6 +233,7 @@ public class Bobby : MonoBehaviour
         }
     }
 
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 8 && !isGrounded)
@@ -259,9 +265,9 @@ public class Bobby : MonoBehaviour
         
         if(isClimbing && other.tag == "EndClimb")
         {
+            playerRb.useGravity = true;
             wall = null;
             isClimbing = false;
-            playerRb.useGravity = true;
             playerRb.transform.position += playerRb.transform.forward + new Vector3(0f, 1f, 0f);
         }
     }
