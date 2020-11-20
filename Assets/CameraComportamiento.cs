@@ -28,8 +28,7 @@ public class CameraComportamiento : PlayerInputs
         yaw += sensibilidadHorizontal * inputVector.x;
         pitch -= sensibilidadVertical * inputVector.y;
 
-        Debug.Log(inputVector.x);
-        Debug.Log(inputVector.y);
+       
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 

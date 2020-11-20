@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     public LayerMask esTierra, esJugador;
 
-    public float hp;
+    public int hp;
 
 
     //Animaciones
