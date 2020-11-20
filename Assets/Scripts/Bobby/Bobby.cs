@@ -224,30 +224,7 @@ public class Bobby : MonoBehaviour
         rb.velocity = currentSpeed;
     }
 
-    private void Climb() //Necesita revision
-    {
-        Debug.Log("Climbing");
-        Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
-        inputVector = inputVector.normalized;
-
-        Debug.Log(inputVector.x);
-        Debug.Log(inputVector.y);
-
-        if (inputVector.magnitude >= 0.1)//Existe un input de movimiento
-        {
-            if (inputVector.x >= 0.1)
-                currentSpeed = transform.right * climbSpeed;
-            else if (inputVector.x <= -0.1)
-                currentSpeed = -transform.right * climbSpeed;
-            else if (inputVector.y >= 0.1)
-                currentSpeed = transform.up * climbSpeed;
-            else if (inputVector.y <= -0.1)
-                currentSpeed = -transform.up * climbSpeed;
-        }
-
-        rb.velocity = currentSpeed;
-    }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 8 && !isGrounded)
