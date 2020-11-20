@@ -19623,6 +19623,7 @@ GameObject:
   - component: {fileID: 6865695081793909887}
   - component: {fileID: 6056226463509163718}
   - component: {fileID: 6056226463509163720}
+  - component: {fileID: 8435627592683135926}
   - component: {fileID: 6056226463509163721}
   - component: {fileID: 6056226463509163719}
   m_Layer: 9
@@ -19666,18 +19667,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   isRunning: 0
-  nearClimb: 0
   isGrounded: 0
   speed: 8
   jumpForce: 5
   speedMultiplier: 1
   turnSmooth: 0.1
-  nearObject: 0
-  item: {fileID: 0}
   objectHolder: {fileID: 6398876405219839337}
   throwForce: 300
   carryObject: 0
   isTrowable: 0
+  nearClimb: 0
+  isClimbing: 0
+  wall: {fileID: 0}
+  climbSpeed: 2
 --- !u!136 &6056226463509163720
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19688,10 +19690,24 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
+  m_Radius: 0.75
   m_Height: 7.210103
   m_Direction: 1
   m_Center: {x: 0, y: 3.600727, z: 0}
+--- !u!136 &8435627592683135926
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6056226463509163717}
+  m_Material: {fileID: 13400000, guid: b9117d94ecd4f3342a0bb553c4b71f6f, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.85
+  m_Height: 7.16
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.627, z: 0}
 --- !u!54 &6056226463509163721
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19768,6 +19784,46 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Dir Input
       m_Flags: 8
+    - m_Name: 2D Vector
+      m_Id: c716172d-b208-4b58-86bd-b6b35693d391
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dir Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 610dcc52-2607-435d-99f5-578538a58a61
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dir Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: f5d4fc96-4df0-4e78-8b55-962bec278b93
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dir Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 035525cb-4a1c-4c25-b6ec-f39f298138a0
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dir Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 1ea4175e-d5b1-4ac7-8c87-49ddc60de606
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dir Input
+      m_Flags: 8
   runInput:
     m_Name: Run Input
     m_Type: 0
@@ -19779,6 +19835,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: ba073dd5-387a-4685-b729-6ab4f27ebbe1
       m_Path: <Gamepad>/leftStickPress
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Run Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: ba123fd3-92fe-4594-becf-223e9fe5d0cc
+      m_Path: <Keyboard>/leftShift
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -19800,6 +19864,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Jump Input
       m_Flags: 0
+    - m_Name: 
+      m_Id: 56527cc8-3f92-484b-a967-e836d02c9d9a
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump Input
+      m_Flags: 0
   throwInput:
     m_Name: Throw Input
     m_Type: 0
@@ -19811,6 +19883,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: efc618a5-5157-4088-833b-3d53b8b1ccd8
       m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Throw Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 0ac16c87-9a53-4065-9c31-c7666671d368
+      m_Path: <Keyboard>/f
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -19832,6 +19912,70 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Interact Input
       m_Flags: 0
+    - m_Name: 
+      m_Id: 9f5d8558-7eaf-4390-886c-dc48d08f62bc
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Interact Input
+      m_Flags: 0
+  attackInput:
+    m_Name: Attack Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 454a9084-4be2-47e7-92ff-a29498ed88f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 62c8998f-044a-41b7-ad95-ab0787481a26
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Attack Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 20149a99-10ff-4af4-82d7-95ad8639d316
+      m_Path: <Keyboard>/v
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Attack Input
+      m_Flags: 0
+  climbInput:
+    m_Name: Climb Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e8a3bca6-3ede-46b0-b32a-3f96b9e3bd15
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 076ba63b-0124-412f-b3a0-e07d615fae21
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Climb Input
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 384376bd-e509-4926-8458-ce09960aef8f
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Climb Input
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 17fac064-53ae-464f-baf3-51144d2d0813
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Climb Input
+      m_Flags: 8
 --- !u!1 &6057919110184673638
 GameObject:
   m_ObjectHideFlags: 0
