@@ -2280,69 +2280,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Default Take' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'ORG-hips' has translation animation that
-      will be discarded.\n\t'ORG-hips' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\t'ORG-ribs' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'GOB_atak1' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips' has
-      translation animation that will be discarded.\n\t'ORG-ribs' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'ORG-toe_L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-toe_R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_atak2' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_atak_left' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-ribs'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_battle_idle' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\nClip 'GOB_blok' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'ORG-hips' has translation
-      animation that will be discarded.\n\nClip 'GOB_blok_shot' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'ORG-hips' has translation
-      animation that will be discarded.\n\t'ORG-hips' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip 'GOB_Idle' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'ORG-hips' has translation
-      animation that will be discarded.\n\t'ORG-ribs' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'ORG-toe_L' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-toe_R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_kill1' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-ribs'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_One_Down' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_One_Up' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_run' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-ribs'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-toe_R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'GOB_walk' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'ORG-hips'
-      has translation animation that will be discarded.\n\t'ORG-hips' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-ribs'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-toe_L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'ORG-toe_R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -2351,7 +2289,7 @@ ModelImporter:
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
-    animationWrapMode: 0
+    animationWrapMode: 1
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
@@ -2419,7 +2357,7 @@ ModelImporter:
       internalID: 0
       firstFrame: 0
       lastFrame: 24
-      wrapMode: 2
+      wrapMode: 1
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

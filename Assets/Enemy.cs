@@ -115,23 +115,26 @@ public class Enemy : MonoBehaviour
         transform.LookAt(player);
 
         //Ejecutamos animacion de ataque
-        animation.Play("attack3");
 
 
+        
         if (!alreadyAttacked)
         {
 
-
+            animation.Play("attack3");
+            animation.PlayQueued("combat_idle");
             Rigidbody rb = Instantiate(projectile, transform.position + offset, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * fuerzaDisparo, ForceMode.Impulse);
 
             alreadyAttacked = true;
+            
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
     private void ResetAttack()
     {
+       
         alreadyAttacked = false;
     }
 
