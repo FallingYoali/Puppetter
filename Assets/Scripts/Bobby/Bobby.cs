@@ -48,30 +48,13 @@ public class Bobby : MonoBehaviour
     private void Update()
     {
         /// ---- Movement ----- ///
-        Vector3 currentSpeed = playerRb.velocity;
+        currentSpeed = playerRb.velocity;
         Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
         Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y).normalized;
 
         if (direction.magnitude >= 0.1)//Existe un input de movimiento
         {
-            if (isClimbing) //Si esta escalando no se tiene que mover de manera normal
-                return;
-
-            if (Inputs.runInput.triggered)//Sprint
-            {
-                isRunning = true;
-                speedMultiplier = 1.5f;
-            }
-
-            //Rotacion
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            //Direccion 
-            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            currentSpeed = moveDir * speed * speedMultiplier;
-            
+            currentSpeed = Movement(direction);
         }
         else //Dejo de moverse
         {
@@ -94,9 +77,9 @@ public class Bobby : MonoBehaviour
         else
             currentSpeed.y = playerRb.velocity.y;
 
+
         //Actualizacion de velocidad
         playerRb.velocity = currentSpeed;
-        
 
         /// ---- Drag & Drop ----- ///
 
@@ -143,20 +126,37 @@ public class Bobby : MonoBehaviour
                 playerRb.useGravity = false;
                 isClimbing = true;
                 wall = hit.collider.gameObject;
-
-                
-                
-
-                //rb.rotation = Quaternion.Euler(distanceToWall);
+                playerRb.position = wall.transform.position + (wall.transform.right * 0.5f) + new Vector3(0f, 0f, -0.75f);
+                //playerRb.transform.LookAt(new Vector3(wall.transform.position.x, playerRb.transform.position.y, wall.transform.position.z - 0.75f));
             }
         }
-
 
         /// ---- Falling dmg ---- ///
         if (!isGrounded)
             FallingDmg();
+
     }
 
+
+    private Vector3 Movement(Vector3 _direction){
+        if (isClimbing) //Si esta escalando no se tiene que mover de manera normal
+            return Vector3.zero;
+
+        if (Inputs.runInput.triggered)//Sprint
+        {
+            isRunning = true;
+            speedMultiplier = 1.5f;
+        }
+
+        //Rotacion
+        float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        //Direccion 
+        moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        return moveDir * speed * speedMultiplier;
+    }
 
     public void TakeDamage(int value)
     {
@@ -167,7 +167,6 @@ public class Bobby : MonoBehaviour
         }
 
     }
-
 
     private void Throw(){
         item.isKinematic = false;
@@ -191,34 +190,34 @@ public class Bobby : MonoBehaviour
 
     private void Climb() //Necesita revision
     {
-        Debug.Log("Climbing");
         Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
-        inputVector = inputVector.normalized;
 
-        Debug.Log(inputVector.x);
-        Debug.Log(inputVector.y);
-
-        if (inputVector.magnitude >= 0.1)//Existe un input de movimiento
+        if (inputVector.magnitude >= 0.1 && wall.name == "Stairs")//Existe un input de movimiento y es una escalera
         {
-            if (inputVector.x >= 0.1)
-                currentSpeed = transform.right * climbSpeed;
-            else if (inputVector.x <= -0.1)
-                currentSpeed = -transform.right * climbSpeed;
-            else if (inputVector.y >= 0.1)
-                currentSpeed = transform.up * climbSpeed;
-            else if (inputVector.y <= -0.1)
-                currentSpeed = -transform.up * climbSpeed;
+            currentSpeed.y = inputVector.y * climbSpeed;
+            currentSpeed += playerRb.transform.forward * climbSpeed;
+        }
+        else
+            currentSpeed *= 0.85f;
+
+
+        if(Inputs.interactInput.triggered)//Deja de escalar
+        {
+            wall = null;
+            isClimbing = false;
+            playerRb.useGravity = true;
+            return;
         }
 
         playerRb.velocity = currentSpeed;
     }
 
-    void FallingDmg(){
-         RaycastHit hit;
+    private void FallingDmg(){
+        RaycastHit hit;
         Ray dirRay = new Ray(transform.position, -transform.up);
         float distanceToGround;
 
-        if (takeFallingDmg)
+        if (takeFallingDmg)//Verifica si ya tiene marcado que recibe dmg
             return;
 
         if (Physics.Raycast(dirRay, out hit) && hit.collider.gameObject.layer == 8)
@@ -256,13 +255,16 @@ public class Bobby : MonoBehaviour
             item = other.GetComponent<Rigidbody>();
         }
 
-        if (other.tag == "Climbable")
-        {
-            //rb.position += new Vector3(-1.5f, 7.5f, 0f);
+        if (other.tag == "BeginClimb")
             nearClimb = true;
-            //wall = other.GetComponent<GameObject>();
+        
+        if(isClimbing && other.tag == "EndClimb")
+        {
+            wall = null;
+            isClimbing = false;
+            playerRb.useGravity = true;
+            playerRb.transform.position += playerRb.transform.forward + new Vector3(0f, 1f, 0f);
         }
-
     }
     private void OnTriggerExit(Collider other)
     {
@@ -272,13 +274,8 @@ public class Bobby : MonoBehaviour
             item = null;
         }
 
-        if (other.tag == "Climbable")
-        {
+        if (other.tag == "BeginClimb")
             nearClimb = false;
-            //wall = null;
-
-        }
-
     }
 
 }
