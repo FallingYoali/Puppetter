@@ -108,7 +108,7 @@ public class Bobby : MonoBehaviour
             if (item != null)
             {
 
-                item.transform.position = objectHolder.position + rb.transform.forward;
+                item.transform.position = objectHolder.position + rb.transform.forward * 0.5f;
                 item.transform.SetParent(objectHolder);
                 item.isKinematic = true;
                 item.useGravity = false;
@@ -122,7 +122,7 @@ public class Bobby : MonoBehaviour
             {
                 Drop();
                 //Debug.DrawRay(item.transform.position, transform.forward, Color.red, 10f);
-                item.AddForce(transform.forward * throwForce);
+                //item.AddForce(transform.forward * throwForce);
             }
             else
                 Drop();
@@ -192,12 +192,36 @@ public class Bobby : MonoBehaviour
 
     public void Drop()
     {
+        item.isKinematic = false;
+        item.useGravity = true;
         carryObject = false;
         isTrowable = false;
 
-        objectHolder.DetachChildren();
-        item.isKinematic = false;
-        item.useGravity = true;
+        objectHolder.DetachChildren(); 
+    }
+
+    private void Climb() //Necesita revision
+    {
+        Debug.Log("Climbing");
+        Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
+        inputVector = inputVector.normalized;
+
+        Debug.Log(inputVector.x);
+        Debug.Log(inputVector.y);
+
+        if (inputVector.magnitude >= 0.1)//Existe un input de movimiento
+        {
+            if (inputVector.x >= 0.1)
+                currentSpeed = transform.right * climbSpeed;
+            else if (inputVector.x <= -0.1)
+                currentSpeed = -transform.right * climbSpeed;
+            else if (inputVector.y >= 0.1)
+                currentSpeed = transform.up * climbSpeed;
+            else if (inputVector.y <= -0.1)
+                currentSpeed = -transform.up * climbSpeed;
+        }
+
+        rb.velocity = currentSpeed;
     }
 
     private void Climb() //Necesita revision
@@ -244,7 +268,7 @@ public class Bobby : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Gryppy")
+        if (other.tag == "Gryppy" || other.tag == "block")
         {
             nearObject = true;
             item = other.GetComponent<Rigidbody>();
@@ -252,14 +276,15 @@ public class Bobby : MonoBehaviour
 
         if (other.tag == "Climbable")
         {
-            nearClimb = true;
-            wall = other.GetComponent<GameObject>();
+            rb.position += new Vector3(-1.5f, 7.5f, 0f);
+            //nearClimb = true;
+            //wall = other.GetComponent<GameObject>();
         }
 
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Gryppy")
+        if (other.tag == "Gryppy" || other.tag == "block")
         {
             nearObject = false;
             item = null;
