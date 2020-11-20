@@ -8,7 +8,7 @@ public class Bobby : MonoBehaviour
     private PlayerInputs Inputs;
 
     [Header("Player")]
-    private Rigidbody rb;
+    private Rigidbody playerRb;
     public int hp = 3;
     public bool isRunning;
     [SerializeField] private bool isGrounded;
@@ -25,8 +25,8 @@ public class Bobby : MonoBehaviour
     private bool takeFallingDmg = false;
 
     [Header("Grab&Throw")]
-    public bool nearObject = false;
-    public Rigidbody item = null;
+    private bool nearObject = false;
+    private Rigidbody item = null;
     public Transform objectHolder;
     public float throwForce;
     public bool carryObject = false;
@@ -35,43 +35,26 @@ public class Bobby : MonoBehaviour
     [Header("Climbing")]
     public bool nearClimb = false;
     public bool isClimbing = false;
-    public GameObject wall = null;
+    public GameObject wall;
     public float climbSpeed = 2f;
-    public Vector3 distanceToWall = new Vector3(0, 0, 0);
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        playerRb = GetComponent<Rigidbody>();
         Inputs = GetComponent<PlayerInputs>();
     }
 
     private void Update()
     {
         /// ---- Movement ----- ///
-        Vector3 currentSpeed = rb.velocity;
+        currentSpeed = playerRb.velocity;
         Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
         Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y).normalized;
 
         if (direction.magnitude >= 0.1)//Existe un input de movimiento
         {
-            if (isClimbing) //Si esta escalando no se tiene que mover de manera normal
-                return;
-
-            if (Inputs.runInput.triggered)//Sprint
-            {
-                isRunning = true;
-                speedMultiplier = 1.5f;
-            }
-
-            //Rotacion
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); //Te 
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            //Direccion 
-            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            currentSpeed = moveDir * speed * speedMultiplier;
+            currentSpeed = Movement(direction);
         }
         else //Dejo de moverse
         {
@@ -91,11 +74,11 @@ public class Bobby : MonoBehaviour
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
         else
-            currentSpeed.y = rb.velocity.y;
+            currentSpeed.y = playerRb.velocity.y;
+
 
         //Actualizacion de velocidad
-        rb.velocity = currentSpeed;
-
+        playerRb.velocity = currentSpeed;
 
         /// ---- Drag & Drop ----- ///
 
@@ -108,7 +91,7 @@ public class Bobby : MonoBehaviour
             if (item != null)
             {
 
-                item.transform.position = objectHolder.position + rb.transform.forward * 0.5f;
+                item.transform.position = objectHolder.position + playerRb.transform.forward * 0.3f;
                 item.transform.SetParent(objectHolder);
                 item.isKinematic = true;
                 item.useGravity = false;
@@ -119,11 +102,7 @@ public class Bobby : MonoBehaviour
         if (Inputs.throwInput.triggered && carryObject)
         {
             if (isTrowable)
-            {
-                Drop();
-                //Debug.DrawRay(item.transform.position, transform.forward, Color.red, 10f);
-                //item.AddForce(transform.forward * throwForce);
-            }
+                Throw();
             else
                 Drop();
         }
@@ -131,8 +110,7 @@ public class Bobby : MonoBehaviour
 
         /// ---- Climbing ---- ///
 
-
-        if (isClimbing)
+        if (isClimbing) //
         { //Work In Progress 
             Climb();
             return;
@@ -144,40 +122,45 @@ public class Bobby : MonoBehaviour
             Ray dirRay = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(dirRay, out hit, 2f) && hit.collider.tag == "Climbable") //Verifica que el player este mirando a la pared
             {
-
-                rb.useGravity = false;
+                playerRb.useGravity = false;
                 isClimbing = true;
                 wall = hit.collider.gameObject;
-
-                //rb.rotation = Quaternion.Euler(distanceToWall);
+                playerRb.position = wall.transform.position + (wall.transform.right * 0.5f) + new Vector3(0f, 0f, -0.75f);
+                //playerRb.transform.LookAt(new Vector3(wall.transform.position.x, playerRb.transform.position.y, wall.transform.position.z - 0.75f));
             }
         }
-
 
         /// ---- Falling dmg ---- ///
-
         if (!isGrounded)
+            FallingDmg();
+
+    }
+
+
+    private Vector3 Movement(Vector3 _direction){
+        if (isClimbing) //Si esta escalando no se tiene que mover de manera normal
+            return Vector3.zero;
+
+        if (Inputs.runInput.triggered)//Sprint
         {
-            RaycastHit hit;
-            Ray dirRay = new Ray(transform.position, -transform.up);
-            float distanceToGround;
+            isRunning = true;
+            speedMultiplier = 1.5f;
 
-            if (takeFallingDmg)
-                return;
-
-            if (Physics.Raycast(dirRay, out hit) && hit.collider.gameObject.layer == 8)
-            {
-                distanceToGround = transform.position.y - hit.transform.position.y;
-                if (distanceToGround >= 15f)
-                    takeFallingDmg = true;
-
-            }
         }
+         //Rotacion
+        float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        //Direccion 
+        moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        return moveDir * speed * speedMultiplier;
     }
 
     private void DesactivateEspadita()
     {
         espadita.SetActive(false);
+       
     }
 
     public void TakeDamage(int value)
@@ -189,6 +172,16 @@ public class Bobby : MonoBehaviour
         }
 
     }
+
+    private void Throw(){
+        item.isKinematic = false;
+        item.useGravity = true;
+        carryObject = false;
+        isTrowable = false;
+
+        objectHolder.DetachChildren(); 
+        item.AddForce(transform.forward * throwForce);
+    }    
 
     public void Drop()
     {
@@ -202,26 +195,43 @@ public class Bobby : MonoBehaviour
 
     private void Climb() //Necesita revision
     {
-        Debug.Log("Climbing");
         Vector2 inputVector = Inputs.dirInput.ReadValue<Vector2>();
-        inputVector = inputVector.normalized;
 
-        Debug.Log(inputVector.x);
-        Debug.Log(inputVector.y);
-
-        if (inputVector.magnitude >= 0.1)//Existe un input de movimiento
+        if (inputVector.magnitude >= 0.1 && wall.name == "Stairs")//Existe un input de movimiento y es una escalera
         {
-            if (inputVector.x >= 0.1)
-                currentSpeed = transform.right * climbSpeed;
-            else if (inputVector.x <= -0.1)
-                currentSpeed = -transform.right * climbSpeed;
-            else if (inputVector.y >= 0.1)
-                currentSpeed = transform.up * climbSpeed;
-            else if (inputVector.y <= -0.1)
-                currentSpeed = -transform.up * climbSpeed;
+            currentSpeed.y = inputVector.y * climbSpeed;
+            currentSpeed += playerRb.transform.forward * climbSpeed;
+        }
+        else
+            currentSpeed *= 0.85f;
+
+
+        if(Inputs.interactInput.triggered)//Deja de escalar
+        {
+            wall = null;
+            isClimbing = false;
+            playerRb.useGravity = true;
+            return;
         }
 
-        rb.velocity = currentSpeed;
+        playerRb.velocity = currentSpeed;
+    }
+
+    private void FallingDmg(){
+        RaycastHit hit;
+        Ray dirRay = new Ray(transform.position, -transform.up);
+        float distanceToGround;
+
+        if (takeFallingDmg)//Verifica si ya tiene marcado que recibe dmg
+            return;
+
+        if (Physics.Raycast(dirRay, out hit) && hit.collider.gameObject.layer == 8)
+        {
+            distanceToGround = transform.position.y - hit.transform.position.y;
+            if (distanceToGround >= 15f)
+                takeFallingDmg = true;
+
+        }
     }
 
     
@@ -251,13 +261,16 @@ public class Bobby : MonoBehaviour
             item = other.GetComponent<Rigidbody>();
         }
 
-        if (other.tag == "Climbable")
+        if (other.tag == "BeginClimb")
+            nearClimb = true;
+        
+        if(isClimbing && other.tag == "EndClimb")
         {
-            rb.position += new Vector3(-1.5f, 7.5f, 0f);
-            //nearClimb = true;
-            //wall = other.GetComponent<GameObject>();
+            wall = null;
+            isClimbing = false;
+            playerRb.useGravity = true;
+            playerRb.transform.position += playerRb.transform.forward + new Vector3(0f, 1f, 0f);
         }
-
     }
     private void OnTriggerExit(Collider other)
     {
@@ -267,13 +280,8 @@ public class Bobby : MonoBehaviour
             item = null;
         }
 
-        if (other.tag == "Climbable")
-        {
+        if (other.tag == "BeginClimb")
             nearClimb = false;
-            wall = null;
-
-        }
-
     }
 
 }

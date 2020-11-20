@@ -12,6 +12,7 @@ public class PlayerInputs : MonoBehaviour
     public InputAction jumpInput;
     public InputAction throwInput;
     public InputAction interactInput;
+    public InputAction attackInput;
 
     void OnEnable()
     {
@@ -21,6 +22,7 @@ public class PlayerInputs : MonoBehaviour
         jumpInput.Enable();
         throwInput.Enable();
         interactInput.Enable();
+        attackInput.Enable();
 
     }
     void OnDisable()
@@ -31,5 +33,6 @@ public class PlayerInputs : MonoBehaviour
         jumpInput.Disable();
         throwInput.Disable();
         interactInput.Disable();
+        attackInput.Disable();
     }
 }
