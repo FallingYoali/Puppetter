@@ -95,8 +95,6 @@ public class Bobby : MonoBehaviour
             currentSpeed.y = playerRb.velocity.y;
 
         //Actualizacion de velocidad
-        if(!isGrounded && playerRb.velocity.y == 0)
-            currentSpeed.y -= 2.81f;
         playerRb.velocity = currentSpeed;
         
 
