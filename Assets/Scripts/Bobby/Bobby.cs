@@ -66,7 +66,6 @@ public class Bobby : MonoBehaviour
         //atacar
         if (Inputs.attackInput.triggered)
         {
-            //Debug.Log("ataca");
             gameObject.SetActive(true);
             Invoke("Delay", 0.5f);
         }
