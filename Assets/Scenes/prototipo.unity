@@ -32943,6 +32943,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
+      propertyPath: m_CullingType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400028, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
     - target: {fileID: 3950608511282959138, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe,
         type: 3}
       propertyPath: player
