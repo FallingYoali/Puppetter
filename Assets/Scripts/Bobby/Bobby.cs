@@ -164,13 +164,21 @@ public class Bobby : MonoBehaviour
         if(Inputs.runInput.triggered)
             speedMultiplier = 1.5f;
 
+        //Toma los vectores hacia donde mira la camara
         Vector3 camForward = mainCamera.transform.forward;
         Vector3 camRight = mainCamera.transform.right;
+        //Debug.DrawRay(mainCamera.transform.position, camForward, Color.red, 2f);
 
-        Vector3 targetAngle = _direction.x * camForward;
-        targetAngle += _direction.z * camRight;
+        //Toma los inputs con respecto a la posicion de la camara
+        moveDir = (camForward * _direction.z) + (camRight * _direction.x);
 
-        return targetAngle.normalized * speed * speedMultiplier;
+        //Rotacion
+        float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;//Retorna angulo hacia donde se va a mover
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmooth, turnSmooth);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        
+        //Direccion
+        return moveDir * speed * speedMultiplier;       
     }
 
     private void DesactivateEspadita()
