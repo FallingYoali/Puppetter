@@ -25154,6 +25154,11 @@ PrefabInstance:
       propertyPath: hp
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6056226463509163718, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1849149208}
     - target: {fileID: 6056226463509163719, guid: 4e0c9c9fd5217a54d9136d8084c03d4b,
         type: 3}
       propertyPath: jumpInput.m_SingletonActionBindings.Array.size
@@ -35551,7 +35556,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15466
+  m_Name: pb_Mesh341502
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -52426,6 +52431,16 @@ PrefabInstance:
         type: 3}
       propertyPath: sensibilidadHorizontal
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579673767061378090, guid: 9444ec923ce7f3f429a328cf01823792,
+        type: 3}
+      propertyPath: attackInput.m_Id
+      value: cee52b5e-8474-491a-acb7-e4335811ebeb
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579673767061378090, guid: 9444ec923ce7f3f429a328cf01823792,
+        type: 3}
+      propertyPath: attackInput.m_Name
+      value: Attack Input
       objectReference: {fileID: 0}
     - target: {fileID: 8296325040186458836, guid: 9444ec923ce7f3f429a328cf01823792,
         type: 3}

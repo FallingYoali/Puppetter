@@ -10,9 +10,10 @@ public class Bobby : MonoBehaviour
     [Header("Player")]
     private Rigidbody playerRb;
     public int hp = 3;
-    public bool isRunning;
     [SerializeField] private bool isGrounded;
     [SerializeField] GameObject espadita;
+    [SerializeField] private Camera mainCamera;
+    
 
     [Header("Movimiento")]
     public float speed = 5.0f;
@@ -54,13 +55,13 @@ public class Bobby : MonoBehaviour
 
         if (direction.magnitude >= 0.1)//Existe un input de movimiento
         {
-            currentSpeed = Movement(direction);
+            currentSpeed = Movement2(direction);
         }
         else //Dejo de moverse
         {
             currentSpeed *= 0.95f;
             speedMultiplier = 1f;
-            isRunning = false;
+            //isRunning = false;
         }
 
         if(Inputs.attackInput.triggered)
@@ -142,11 +143,11 @@ public class Bobby : MonoBehaviour
 
         if (Inputs.runInput.triggered)//Sprint
         {
-            isRunning = true;
+            //isRunning = true;
             speedMultiplier = 1.5f;
 
         }
-         //Rotacion
+        //Rotacion
         float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -154,6 +155,22 @@ public class Bobby : MonoBehaviour
         //Direccion 
         moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         return moveDir * speed * speedMultiplier;
+    }
+
+    private Vector3 Movement2(Vector3 _direction){
+        if(isClimbing)
+            return Vector3.zero;
+
+        if(Inputs.runInput.triggered)
+            speedMultiplier = 1.5f;
+
+        Vector3 camForward = mainCamera.transform.forward;
+        Vector3 camRight = mainCamera.transform.right;
+
+        Vector3 targetAngle = _direction.x * camForward;
+        targetAngle += _direction.z * camRight;
+
+        return targetAngle.normalized * speed * speedMultiplier;
     }
 
     private void DesactivateEspadita()
