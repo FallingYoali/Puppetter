@@ -19666,8 +19666,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  isRunning: 0
   isGrounded: 0
+  espadita: {fileID: 0}
+  mainCamera: {fileID: 0}
   speed: 8
   jumpForce: 5
   speedMultiplier: 1
@@ -19824,6 +19825,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Dir Input
       m_Flags: 8
+  dirInputDer:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 523e1647-420d-4fd3-9c4c-8d2510e49d6f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
   runInput:
     m_Name: Run Input
     m_Type: 0

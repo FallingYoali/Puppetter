@@ -28,15 +28,15 @@ public class CameraComportamiento : PlayerInputs
     void Update()
     {
         //Joystick mov Der
-        //Vector2 inputVector = dirInputDer.ReadValue<Vector2>();
+        Vector2 inputVector = dirInputDer.ReadValue<Vector2>();
 
 
         //Movimiento camara Mouse
-        yaw += sensibilidadHorizontal * Input.GetAxis("Mouse X");
-        pitch -= sensibilidadVertical * Input.GetAxis("Mouse Y");
+        //yaw += sensibilidadHorizontal * Input.GetAxis("Mouse X");
+        //pitch -= sensibilidadVertical * Input.GetAxis("Mouse Y");
 
-        //yaw += sensibilidadHorizontal * inputVector.x;
-        //pitch -= sensibilidadVertical * inputVector.y;
+        yaw += sensibilidadHorizontal * inputVector.x;
+        pitch -= sensibilidadVertical * inputVector.y;
 
        
 
