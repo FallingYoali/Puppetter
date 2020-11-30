@@ -8,44 +8,17 @@ public class WeighedButton : MonoBehaviour
     private int blockCount;
     private Animation anim;
     private bool activated;
-    public Animation bridgeMovement;
+    public Animator animatorButton;
+    public Animation animBox;
 
     void Start()
     {
         blockCount = 0;
-        anim = GetComponentInParent<Animation>();
-    }
-
-    private void DeactivateButton()
-    {
-        anim["WeighedButton"].time = anim["WeighedButton"].length;
-        anim["WeighedButton"].speed = -1;
-        activated = false;
-        anim.Play();
-
-        bridgeMovement["BridgeMove"].time = bridgeMovement["BridgeMove"].length;
-        bridgeMovement["BridgeMove"].speed = -1;
-        bridgeMovement.Play();
-
-        Debug.Log("Deactivated!");
-
     }
 
     private void ActivateButton()
     {
-        Debug.Log(anim, anim);
-        Debug.Log(anim["WeighedButton"]);
-        anim["WeighedButton"].time = 0;
-        anim["WeighedButton"].speed = 1;
-        anim.Play();
-
-
-        bridgeMovement["BridgeMove"].time = 0;
-        bridgeMovement["BridgeMove"].speed = 1;
-        bridgeMovement.Play();
-
-        
-        activated = true;
+        animBox.Play();
         Debug.Log("Activated!");
 
     }
@@ -55,8 +28,9 @@ public class WeighedButton : MonoBehaviour
         if (other.CompareTag("block"))
         {
             blockCount++;
+            animatorButton.SetInteger("boxes", blockCount);
             Debug.Log("in platform " + blockCount);
-            if (blockCount == 3) ActivateButton();
+            if (blockCount == 4) ActivateButton();
         }
     }
 
@@ -66,14 +40,7 @@ public class WeighedButton : MonoBehaviour
         {
             blockCount--;
             Debug.Log("out platform " + blockCount);
-            if (activated && blockCount < 3) DeactivateButton();
         }
        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
