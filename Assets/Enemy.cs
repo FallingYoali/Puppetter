@@ -8,15 +8,15 @@ public class Enemy : MonoBehaviour
 {
 
     public NavMeshAgent agent;
-
     public Transform player;
 
     public LayerMask esTierra, esJugador;
 
-    public float hp;
+    public int hp;
 
 
-
+    //Animaciones
+    public Animation animation;
 
     //Patrullar 
     public Vector3 walkpoint;
@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
 
         player = GameObject.Find("Bobby").transform;
         agent = GetComponent<NavMeshAgent>();
+        animation = GetComponent<Animation>();
 
     }
 
@@ -56,15 +57,24 @@ public class Enemy : MonoBehaviour
         if (!playerEnRango && !playerEnRangoAtaque) Patrullar();
         if (playerEnRango && !playerEnRangoAtaque) PerseguirJugador();
         if (playerEnRango && playerEnRangoAtaque) AtacarJugador();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(1);
+            Debug.Log("Recibio daño");
+        }
     }
 
 
     private void Patrullar()
     {
-        if (!walkPointSet) BuscarWalkPoint();
+        if(hp>0)
+        animation.Play("run");
+
+        if (!walkPointSet&&hp>0) BuscarWalkPoint();
 
 
-        if (walkPointSet)
+        if (walkPointSet&&hp>0)
             agent.SetDestination(walkpoint);
 
         Vector3 distanciaParaPunto = transform.position - walkpoint;
@@ -78,6 +88,7 @@ public class Enemy : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
+        //animation.Play("run");
 
         walkpoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
@@ -103,34 +114,48 @@ public class Enemy : MonoBehaviour
 
         transform.LookAt(player);
 
+        //Ejecutamos animacion de ataque
+
+
+        
         if (!alreadyAttacked)
         {
 
-
+            animation.Play("attack3");
+            animation.PlayQueued("combat_idle");
             Rigidbody rb = Instantiate(projectile, transform.position + offset, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * fuerzaDisparo, ForceMode.Impulse);
 
             alreadyAttacked = true;
+            
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
     private void ResetAttack()
     {
+       
         alreadyAttacked = false;
     }
 
     public void TakeDamage(int damage)
     {
         hp -= damage;
-
-        if (hp <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+       
+        if (hp <= 0&&animation.IsPlaying("run"))
+        {
+            animation.Stop("run");
+            animation.Play("death");
+            Invoke(nameof(DestroyEnemy), 3.0f);
+        }
     }
 
 
     private void DestroyEnemy()
     {
+        
         Destroy(gameObject);
+
     }
 
 

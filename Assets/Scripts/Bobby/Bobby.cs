@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
-
+using UnityEngine.InputSystem;
 
 public class Bobby : MonoBehaviour
 {
@@ -11,8 +10,10 @@ public class Bobby : MonoBehaviour
     [Header("Player")]
     private Rigidbody playerRb;
     public int hp = 3;
-    public bool isRunning;
     [SerializeField] private bool isGrounded;
+    [SerializeField] GameObject espadita;
+    [SerializeField] private Camera mainCamera;
+    
 
     [Header("Movimiento")]
     public float speed = 5.0f;
@@ -54,23 +55,21 @@ public class Bobby : MonoBehaviour
 
         if (direction.magnitude >= 0.1)//Existe un input de movimiento
         {
-            currentSpeed = Movement(direction);
+            currentSpeed = Movement2(direction);
         }
         else //Dejo de moverse
         {
             currentSpeed *= 0.95f;
             speedMultiplier = 1f;
-            isRunning = false;
+            //isRunning = false;
         }
 
-        //atacar
-        if (Inputs.attackInput.triggered)
+        if(Inputs.attackInput.triggered)
         {
-            //Debug.Log("ataca");
-            gameObject.SetActive(true);
-            Invoke("Delay", 0.5f);
+            espadita.SetActive(true);
+            Invoke(nameof(DesactivateEspadita), 0.5f);
         }
-        
+
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
             currentSpeed.y = jumpForce;
@@ -144,10 +143,10 @@ public class Bobby : MonoBehaviour
 
         if (Inputs.runInput.triggered)//Sprint
         {
-            isRunning = true;
+            //isRunning = true;
             speedMultiplier = 1.5f;
-        }
 
+        }
         //Rotacion
         float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg; //Retorna angulo hacia donde se va a mover
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth); 
@@ -156,6 +155,38 @@ public class Bobby : MonoBehaviour
         //Direccion 
         moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         return moveDir * speed * speedMultiplier;
+    }
+
+    private Vector3 Movement2(Vector3 _direction){
+        if(isClimbing)
+            return Vector3.zero;
+
+        if(Inputs.runInput.triggered)
+            speedMultiplier = 1.5f;
+
+        //Toma los vectores hacia donde mira la camara
+        Vector3 camForward = mainCamera.transform.forward;
+        Vector3 camRight = mainCamera.transform.right;
+        Debug.DrawRay(mainCamera.transform.position, camForward, Color.red);
+
+        //Toma los inputs con respecto a la posicion de la camara
+        moveDir = (camForward * _direction.z) + (camRight * _direction.x);
+        Debug.DrawRay(playerRb.position, moveDir, Color.blue);
+        Debug.DrawRay(playerRb.position, playerRb.transform.forward, Color.green);
+
+        //Rotacion
+        float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;//Retorna angulo hacia donde se va a mover
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmooth);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        
+        //Direccion
+        return moveDir * speed * speedMultiplier;       
+    }
+
+    private void DesactivateEspadita()
+    {
+        espadita.SetActive(false);
+       
     }
 
     public void TakeDamage(int value)
@@ -229,6 +260,7 @@ public class Bobby : MonoBehaviour
         }
     }
 
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 8 && !isGrounded)
@@ -260,9 +292,9 @@ public class Bobby : MonoBehaviour
         
         if(isClimbing && other.tag == "EndClimb")
         {
+            playerRb.useGravity = true;
             wall = null;
             isClimbing = false;
-            playerRb.useGravity = true;
             playerRb.transform.position += playerRb.transform.forward + new Vector3(0f, 1f, 0f);
         }
     }

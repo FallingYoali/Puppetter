@@ -19666,8 +19666,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  isRunning: 0
   isGrounded: 0
+  espadita: {fileID: 0}
+  mainCamera: {fileID: 0}
   speed: 8
   jumpForce: 5
   speedMultiplier: 1
@@ -19802,7 +19803,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: down
       m_Id: f5d4fc96-4df0-4e78-8b55-962bec278b93
-      m_Path: <Keyboard>/a
+      m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -19810,7 +19811,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: left
       m_Id: 035525cb-4a1c-4c25-b6ec-f39f298138a0
-      m_Path: <Keyboard>/d
+      m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -19818,12 +19819,20 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: right
       m_Id: 1ea4175e-d5b1-4ac7-8c87-49ddc60de606
-      m_Path: <Keyboard>/s
+      m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Dir Input
       m_Flags: 8
+  dirInputDer:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 523e1647-420d-4fd3-9c4c-8d2510e49d6f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
   runInput:
     m_Name: Run Input
     m_Type: 0
@@ -19944,38 +19953,6 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Attack Input
       m_Flags: 0
-  climbInput:
-    m_Name: Climb Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e8a3bca6-3ede-46b0-b32a-3f96b9e3bd15
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 1D Axis
-      m_Id: 076ba63b-0124-412f-b3a0-e07d615fae21
-      m_Path: 1DAxis
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Climb Input
-      m_Flags: 4
-    - m_Name: negative
-      m_Id: 384376bd-e509-4926-8458-ce09960aef8f
-      m_Path: <Gamepad>/leftStick/down
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Climb Input
-      m_Flags: 8
-    - m_Name: positive
-      m_Id: 17fac064-53ae-464f-baf3-51144d2d0813
-      m_Path: <Gamepad>/leftStick/down
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Climb Input
-      m_Flags: 8
 --- !u!1 &6057919110184673638
 GameObject:
   m_ObjectHideFlags: 0
