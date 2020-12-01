@@ -11,6 +11,8 @@ TagManager:
   - enemy
   - BeginClimb
   - EndClimb
+  - door
+  - key
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - esEnemigo
   - esBalita
   - Gryppy
-  - 
+  - boton
   - 
   - 
   - 

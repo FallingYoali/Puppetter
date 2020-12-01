@@ -40,10 +40,17 @@ public class Bobby : MonoBehaviour
     public float climbSpeed = 2f;
 
 
+    //WaterDamage
+    private WaitForSeconds waitTime;
+    private int secondsPassed;
+
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
         Inputs = GetComponent<PlayerInputs>();
+        //WaterDamage
+        waitTime = new WaitForSeconds(1.0f);
+        secondsPassed = 0;
     }
 
     private void Update()
@@ -272,6 +279,13 @@ public class Bobby : MonoBehaviour
                 TakeDamage(1);
             }
         }
+        //Water Damager
+        if (collision.gameObject.CompareTag("water"))
+        {
+            //call death or lower HP
+            Debug.Log("Collision with water");
+            StartCoroutine("WaterDamage");
+        }
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -310,4 +324,14 @@ public class Bobby : MonoBehaviour
             nearClimb = false;
     }
 
+    IEnumerator WaterDamage()
+    {
+        while(secondsPassed <= 3)
+        { 
+            yield return waitTime;
+            secondsPassed++;
+            Debug.Log("Damage by Water: " + hp);
+            TakeDamage(1);
+        }
+    }
 }
