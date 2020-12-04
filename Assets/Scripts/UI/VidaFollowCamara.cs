@@ -10,7 +10,7 @@ public class VidaFollowCamara : MonoBehaviour
     void Update()
     {
 
-        transform.forward = Camera.main.transform.forward;
+        //transform.forward = Camera.main.transform.forward;
 
     }
 }

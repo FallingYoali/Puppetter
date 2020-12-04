@@ -259,7 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockCount: 0
-  bridgeMovement: {fileID: 6057847279644996184}
+  animatorButton: {fileID: 0}
+  animBox: {fileID: 0}
 --- !u!1 &15713530
 GameObject:
   m_ObjectHideFlags: 0
@@ -33141,7 +33142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100702, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400702, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
       propertyPath: m_LocalPosition.x

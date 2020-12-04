@@ -32,11 +32,11 @@ public class CameraComportamiento : PlayerInputs
 
 
         //Movimiento camara Mouse
-        //yaw += sensibilidadHorizontal * Input.GetAxis("Mouse X");
-        //pitch -= sensibilidadVertical * Input.GetAxis("Mouse Y");
+        yaw += sensibilidadHorizontal * Input.GetAxis("Mouse X");
+        pitch -= sensibilidadVertical * Input.GetAxis("Mouse Y");
 
-        yaw += sensibilidadHorizontal * inputVector.x;
-        pitch -= sensibilidadVertical * inputVector.y;
+//        yaw += sensibilidadHorizontal * inputVector.x;
+  //      pitch -= sensibilidadVertical * inputVector.y;
 
        
 

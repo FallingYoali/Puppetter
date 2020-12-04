@@ -96,5 +96,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6bc370834a4c348805da08eb9f9fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirInput:
+    m_Name: Dir Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e2510235-56fd-43a1-81c5-9f2a90ad01d8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  dirInputDer:
+    m_Name: Dir Input Der
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3c03ce2f-ec3c-4d0a-9627-21c19e66be97
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  runInput:
+    m_Name: Run Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 71db7353-921e-4a8f-9b53-5fd04fa19f8c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  jumpInput:
+    m_Name: Jump Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 178c049d-82d8-4485-83fa-45a06e424bfe
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  throwInput:
+    m_Name: Throw Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 02ada7cf-c3bb-451b-8473-47817c0310d7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  interactInput:
+    m_Name: Interact Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a51064e7-3e02-4312-981c-542b5c1368e6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  attackInput:
+    m_Name: Attack Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5602a4d1-7a10-45e5-ab7e-97cbf081f834
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
   sensibilidadVertical: 2
   sensibilidadHorizontal: 2
+  target: {fileID: 0}
+  suavizado: 2

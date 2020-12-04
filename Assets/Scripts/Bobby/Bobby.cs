@@ -280,12 +280,12 @@ public class Bobby : MonoBehaviour
             }
         }
         //Water Damager
-        if (collision.gameObject.CompareTag("water"))
-        {
+        //if (collision.gameObject.CompareTag("water"))
+       // {
             //call death or lower HP
-            Debug.Log("Collision with water");
-            StartCoroutine("WaterDamage");
-        }
+        //    Debug.Log("Collision with water");
+        //    StartCoroutine("WaterDamage");
+        //}
     }
     private void OnCollisionExit(Collision collision)
     {
