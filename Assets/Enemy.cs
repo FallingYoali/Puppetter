@@ -58,11 +58,11 @@ public class Enemy : MonoBehaviour
         if (playerEnRango && !playerEnRangoAtaque) PerseguirJugador();
         if (playerEnRango && playerEnRangoAtaque) AtacarJugador();
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        /*if(Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(1);
             Debug.Log("Recibio daño");
-        }
+        }*/
     }
 
 

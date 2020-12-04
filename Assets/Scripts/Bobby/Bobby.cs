@@ -63,6 +63,7 @@ public class Bobby : MonoBehaviour
         if (direction.magnitude >= 0.1)//Existe un input de movimiento
         {
             currentSpeed = Movement2(direction);
+            //Debug.Log(currentSpeed);
         }
         else //Dejo de moverse
         {
@@ -79,7 +80,11 @@ public class Bobby : MonoBehaviour
 
         //Salto
         if (Inputs.jumpInput.triggered && isGrounded)
+        {
             currentSpeed.y = jumpForce;
+            isGrounded = false;
+
+        }
         else
             currentSpeed.y = playerRb.velocity.y;
 
@@ -270,6 +275,8 @@ public class Bobby : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.collider, collision.collider);
+
         if (collision.gameObject.layer == 8 && !isGrounded)
         {
             isGrounded = true;
@@ -289,8 +296,8 @@ public class Bobby : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == 8 && isGrounded)
-            isGrounded = false;
+        //if (collision.gameObject.layer == 8 && isGrounded)
+          //  isGrounded = false;
     }
 
     private void OnTriggerEnter(Collider other)

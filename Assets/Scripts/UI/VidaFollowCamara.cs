@@ -5,12 +5,15 @@ using UnityEngine;
 public class VidaFollowCamara : MonoBehaviour
 {
     // Start is called before the first frame update
-   
+
     // Update is called once per frame
+    [SerializeField] Camera cam;
+
+   
     void Update()
     {
 
-        //transform.forward = Camera.main.transform.forward;
+        transform.forward = cam.transform.forward;
 
     }
 }
